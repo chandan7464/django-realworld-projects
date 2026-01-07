@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horoscope</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>This is Horoscope View</h1>
+        <hr>
+
+        <h2>Hello friends, Good {{ wish }}</h2>
+        <h2>Today's astroview for {{ name }}: {{ message }}</h2>
+        <h2>Very soon you date with Ananya 😄</h2>
+
+        <!-- Home Button -->
+        <a href="{% url 'home' %}" class="btn">Home</a>
+
+    </div>
+
+</body>
+</html>

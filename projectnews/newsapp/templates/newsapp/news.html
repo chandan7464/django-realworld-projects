@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News</title>
+    <link rel = "stylesheet" href="{% static 'css/news.css' %}"
+ </head>
+<body>
+    <h1>This is {{type}} bulletin</h1>
+      
+    {% if type == 'business' %}
+    <img src="{% static 'images/R1.jpeg' %}" alt="">
+    <img src="{% static 'images/t1.jpeg' %}" alt="">
+    <img src="{% static 'images/e1.jpeg' %}" alt="">
+    {% elif type == 'sports' %}
+    <img src="{% static 'images/v1.jpeg' %}" alt="">
+    <img src="{% static 'images/rh1.jpeg' %}" alt="">
+    <img src="{% static 'images/rcb.jpeg' %}" alt="">
+    {% elif type == 'entertainment' %}
+    <img src="{% static 'images/m1.jpeg' %}" alt="">
+    <img src="{% static 'images/b1.jpeg' %}" alt="">
+    <img src="{% static 'images/tom.jpeg' %}" alt="">
+    {% endif %}
+
+
+
+    <ul> 
+        <h3><li>{{h1}}</li></h3>
+        <h3><li>{{h2}}</li></h3>
+        <h3><li>{{h3}}</li></h3>
+    </ul>
+    <marquee><h1>This is a {{type}} bulletin</h1></marquee>
+    <a href="{% url 'home' %}"><button>news</button></a>
+
+
+</body>
+</html>

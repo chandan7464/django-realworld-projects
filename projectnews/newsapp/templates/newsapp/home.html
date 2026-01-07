@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+   <center>
+    <img src="{% static 'images/images.jfif' %}" alt="">
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi, 
+        hic corporis? Eos, voluptatum sint doloribus iste adipisci cum. Vitae, soluta!</p></center> 
+    <ul type="square">
+        <li><a href="{% url 'business' %}">Business news</a></li>
+        <li><a href="{% url 'sports' %}">Sports news</a></li>
+        <li><a href="{% url 'entertainment' %}">Entertainment news</a></li>
+    </ul>
+    <h1>This is a home view</h1>
+
+</body>
+</html>

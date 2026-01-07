@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Data Management - Preview</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css">
+    
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        
+        .header-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .stats-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .search-box {
+            margin-bottom: 1.5rem;
+        }
+        
+        .table thead {
+            background-color: #667eea;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .table thead th {
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .table thead th:hover {
+            background-color: #5568d3;
+        }
+        
+        .table tbody tr:hover {
+            background-color: #f1f3f5;
+            cursor: pointer;
+        }
+        
+        .salary-badge {
+            background-color: #28a745;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+        
+        .stat-icon {
+            font-size: 2.5rem;
+            opacity: 0.8;
+        }
+        
+        .sort-icon {
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+        
+        .record-count {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="header-section">
+        <div class="container">
+            <h1 class="display-4 mb-0">
+                <i class="bi bi-people-fill"></i> Employee Management System
+            </h1>
+            <p class="lead mb-0">Complete Database - All 62 Employee Records</p>
+        </div>
+    </div>
+
+    <div class="container-fluid px-4">
+        <!-- Statistics Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-1">Total Employees</h6>
+                            <h2 class="mb-0">62</h2>
+                        </div>
+                        <i class="bi bi-people stat-icon text-primary"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-1">Unique Cities</h6>
+                            <h2 class="mb-0" id="uniqueCities">62</h2>
+                        </div>
+                        <i class="bi bi-geo-alt stat-icon text-info"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-1">Unique Companies</h6>
+                            <h2 class="mb-0" id="uniqueCompanies">61</h2>
+                        </div>
+                        <i class="bi bi-building stat-icon text-warning"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-1">Displayed Records</h6>
+                            <h2 class="mb-0" id="displayedCount">62</h2>
+                        </div>
+                        <i class="bi bi-filter stat-icon text-success"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Table Section -->
+        <div class="table-container">
+            <!-- Search and Controls -->
+            <div class="search-box">
+                <div class="row align-items-center">
+                    <div class="col-md-4">
+                        <h4 class="mb-3">
+                            <i class="bi bi-table"></i> Employee Records
+                            <span class="record-count ms-2">62 Total</span>
+                        </h4>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="searchInput" 
+                                   placeholder="Search by name, email, city, company, or job role...">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-outline-primary w-100" id="resetBtn">
+                            <i class="bi bi-arrow-clockwise"></i> Reset Order & Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Employee Table -->
+            <div class="table-responsive" style="max-height: 800px; overflow-y: auto;">
+                <table class="table table-hover align-middle" id="employeeTable">
+                    <thead>
+                        <tr>
+                            <th scope="col" data-sort="index"># <i class="bi bi-arrow-down-up sort-icon"></i></th>
+                            <th scope="col" data-sort="name">
+                                <i class="bi bi-person"></i> Name <i class="bi bi-arrow-down-up sort-icon"></i>
+                            </th>
+                            <th scope="col" data-sort="email">
+                                <i class="bi bi-envelope"></i> Email <i class="bi bi-arrow-down-up sort-icon"></i>
+                            </th>
+                            <th scope="col" data-sort="city">
+                                <i class="bi bi-geo-alt"></i> City <i class="bi bi-arrow-down-up sort-icon"></i>
+                            </th>
+                            <th scope="col" data-sort="address">
+                                <i class="bi bi-house"></i> Address <i class="bi bi-arrow-down-up sort-icon"></i>
+                            </th>
+                            <th scope="col" data-sort="company">
+                                <i class="bi bi-building"></i> Company <i class="bi bi-arrow-down-up sort-icon"></i>
+                            </th>
+                            <th scope="col" data-sort="salary">
+                                <i class="bi bi-cash"></i> Salary <i class="bi bi-arrow-down-up sort-icon"></i>
+                            </th>
+                            <th scope="col" data-sort="jobrole">
+                                <i class="bi bi-briefcase"></i> Job Role <i class="bi bi-arrow-down-up sort-icon"></i>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+
+            <!-- Footer Info -->
+            <div class="mt-3 d-flex justify-content-between align-items-center">
+                <small class="text-muted">
+                    Showing <strong id="visibleCount">62</strong> of <strong>62</strong> employees
+                </small>
+                <small class="text-muted">
+                    <i class="bi bi-info-circle"></i> Click column headers to sort
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 mt-5">
+        <div class="container">
+            <p class="text-muted mb-0">
+                <i class="bi bi-c-circle"></i> 2026 Employee Management System - All 62 Records
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // All 62 employee records
+        const employees = [
+            {name: "Karla Barrett", email: "bmccoy@example.net", city: "South Desireeport", address: "459 Daniel Wells Adrianbury, NJ 03507", company: "Beasley, Anthony and Smith", salary: 69551, jobrole: "Science writer"},
+            {name: "Andrea Williams", email: "lmarshall@example.net", city: "South Andrew", address: "28208 Stevens Cape New Olivia, KS 01902", company: "Bradley-Edwards", salary: 30819, jobrole: "Interpreter"},
+            {name: "Wayne Thomas", email: "arnoldelizabeth@example.net", city: "Acostaburgh", address: "69115 Simpson Stream New Stevenshire, KS 10536", company: "Dean PLC", salary: 30213, jobrole: "Engineer, control and instrumentation"},
+            {name: "David Turner", email: "ashleysantos@example.net", city: "East Tanyahaven", address: "5672 Steven Ports Claytonland, AZ 67430", company: "Carter Ltd", salary: 47197, jobrole: "Airline pilot"},
+            {name: "Bryan Jennings", email: "dsuarez@example.com", city: "Ashleybury", address: "9192 Campbell Spurs West David, OK 24994", company: "Hoffman-Yang", salary: 13840, jobrole: "Systems analyst"},
+            {name: "Julie Doyle", email: "collieralexander@example.com", city: "Barrettland", address: "73172 Jennifer Circles Suite 337 Brendachester, IA 70153", company: "Myers-Clarke", salary: 48487, jobrole: "Economist"},
+            {name: "Justin Erickson", email: "pam87@example.com", city: "New Alicia", address: "43056 Larry Squares Wallborough, WA 85970", company: "Donovan Ltd", salary: 24388, jobrole: "Logistics and distribution manager"},
+            {name: "Christopher Lewis", email: "blackwelldavid@example.com", city: "New Kellyburgh", address: "4340 Michael Parkways Laurahaven, AS 62280", company: "Wright-Edwards", salary: 10495, jobrole: "IT consultant"},
+            {name: "Matthew Andersen", email: "smithpatricia@example.com", city: "West Harryside", address: "300 Marvin Ramp Port Breanna, PA 65203", company: "Coleman-Weiss", salary: 27478, jobrole: "Volunteer coordinator"},
+            {name: "Luis Briggs", email: "howellkyle@example.org", city: "North Mckenzieville", address: "Unit 3236 Box 8486 DPO AP 41193", company: "Smith, Mosley and Santos", salary: 61400, jobrole: "Research officer, political party"},
+            {name: "Bobby Whitney", email: "osmith@example.net", city: "East Wendy", address: "1618 William Shore Suite 713 East Richardmouth, MA 25053", company: "Ortiz Group", salary: 15787, jobrole: "Nurse, mental health"},
+            {name: "Daniel Hunt", email: "angeladecker@example.org", city: "Courtneyton", address: "911 Thomas Centers Apt. 273 Port Andrew, VA 70884", company: "Salazar, Davila and Fuller", salary: 52961, jobrole: "Chief Financial Officer"},
+            {name: "Chad Ortiz", email: "chloe92@example.com", city: "Virginiamouth", address: "1570 Chapman Highway Suite 574 Lake Colleenberg, WV 89036", company: "Carrillo Ltd", salary: 63699, jobrole: "Estate manager/land agent"},
+            {name: "Michael Ward", email: "kevin45@example.net", city: "East Jeffrey", address: "47664 Diaz Flats Suite 453 Christineberg, TN 71700", company: "Hurley, Gordon and Miller", salary: 56860, jobrole: "Lecturer, further education"},
+            {name: "Elizabeth Watson", email: "samuel86@example.net", city: "New Angela", address: "111 Kelly Circle New Ryanton, OK 54558", company: "Donaldson-Ibarra", salary: 58412, jobrole: "Engineer, civil (consulting)"},
+            {name: "Cassandra Johnson", email: "williamwilliams@example.org", city: "North Ian", address: "174 Jenkins Common Hernandezhaven, MI 57034", company: "Austin-Jenkins", salary: 62350, jobrole: "Chartered management accountant"},
+            {name: "Janet Shaw", email: "qsweeney@example.net", city: "Melindahaven", address: "37397 Brown Land Lake Alyssa, MH 48169", company: "Smith-Williamson", salary: 12370, jobrole: "Engineer, chemical"},
+            {name: "Charles Allen", email: "irwinmichael@example.com", city: "New Ashley", address: "3743 Robinson Glens West Erica, FL 42070", company: "Hale-Smith", salary: 39773, jobrole: "Advertising art director"},
+            {name: "Rebecca Taylor", email: "michelle47@example.net", city: "Jacobfort", address: "178 Joe Trafficway Suite 067 New Ashleyhaven, WA 89501", company: "Bradley, Bowers and Vega", salary: 67141, jobrole: "Barista"},
+            {name: "Matthew Brown", email: "angela57@example.org", city: "Port Renee", address: "USNS Jackson FPO AA 43194", company: "Baker, Johnson and Warren", salary: 43952, jobrole: "Purchasing manager"},
+            {name: "Jessica Mathis", email: "bradley61@example.net", city: "West Andrew", address: "2635 Harper Hills Port Ronaldberg, AZ 11290", company: "Garcia LLC", salary: 22469, jobrole: "Amenity horticulturist"},
+            {name: "Matthew King", email: "jlawrence@example.com", city: "Mannfurt", address: "812 Jacob Crescent Apt. 522 Hornport, ID 02069", company: "Salazar-Fleming", salary: 15706, jobrole: "Presenter, broadcasting"},
+            {name: "Holly Johnson", email: "allison52@example.net", city: "Port John", address: "638 Miranda Shoal West Paula, CA 97478", company: "Bridges PLC", salary: 48422, jobrole: "Politician's assistant"},
+            {name: "James Robinson", email: "michaelnguyen@example.net", city: "New Teresamouth", address: "687 Foley Forks Port Stevenfurt, VT 83619", company: "Shah, Davis and Williams", salary: 17522, jobrole: "Site engineer"},
+            {name: "Nicholas Ellis", email: "amysimpson@example.com", city: "West Larryville", address: "490 Roberson Knoll Apt. 969 Thompsonport, SD 14822", company: "Thornton, Valdez and Clark", salary: 60384, jobrole: "Arts administrator"},
+            {name: "Amanda Perry", email: "cjohnson@example.com", city: "South Patricktown", address: "992 Susan Crescent Apt. 982 New Amy, PW 09402", company: "Zhang, Stewart and Sanders", salary: 60166, jobrole: "Agricultural engineer"},
+            {name: "Emily Hicks", email: "stephanie08@example.net", city: "Nicholasmouth", address: "0807 Bryant Ways Snyderfort, AL 05197", company: "Reyes, Lynch and Ellis", salary: 27169, jobrole: "Film/video editor"},
+            {name: "Mark Smith", email: "donna59@example.org", city: "Brownfort", address: "465 Morris Villages Robertton, PR 91998", company: "Holland, Davis and Rivera", salary: 25620, jobrole: "Music therapist"},
+            {name: "Lisa Owens", email: "lestervalerie@example.org", city: "Smithport", address: "99488 Martinez Street North Dawnbury, NH 64240", company: "Blair-Bartlett", salary: 38660, jobrole: "Equality and diversity officer"},
+            {name: "Eric Lee", email: "dobrien@example.org", city: "Campbellfurt", address: "7064 Jimenez Mountain Smallfort, MS 04417", company: "Roberts, Gonzalez and Noble", salary: 57111, jobrole: "Pension scheme manager"},
+            {name: "Mr. William Dean", email: "gonzalezedwin@example.net", city: "East Natasha", address: "943 Yates Spring Suite 075 South William, OK 54118", company: "Anderson and Sons", salary: 30578, jobrole: "Secondary school teacher"},
+            {name: "John Ford", email: "mgardner@example.com", city: "Lake Joshua", address: "349 Brown Turnpike East Brendaborough, MI 51224", company: "Bennett Ltd", salary: 37384, jobrole: "Associate Professor"},
+            {name: "Morgan Sweeney", email: "twilliams@example.com", city: "East Jerryview", address: "176 Cruz Mission West Williamhaven, NE 18925", company: "Stanton, Andersen and Garcia", salary: 64642, jobrole: "Games developer"},
+            {name: "William Allen", email: "rvillanueva@example.org", city: "Ortizbury", address: "PSC 2967, Box 6957 APO AE 75661", company: "Johnson, Johnson and Townsend", salary: 41511, jobrole: "Physiotherapist"},
+            {name: "Robert Jones", email: "chavezryan@example.com", city: "Port Kathrynbury", address: "93701 Rodriguez Green Suite 916 Burkefort, ME 08865", company: "Rodriguez LLC", salary: 42997, jobrole: "Forensic psychologist"},
+            {name: "Corey Ball", email: "glassamanda@example.com", city: "Ralphhaven", address: "776 Dylan Station Michaelfort, MI 22608", company: "Gutierrez, Daugherty and Mills", salary: 41408, jobrole: "Scientist, forensic"},
+            {name: "Jennifer Vega", email: "staceynelson@example.com", city: "East Randy", address: "59586 Neal Dam Stoneshire, UT 64194", company: "Cole PLC", salary: 10607, jobrole: "Therapist, sports"},
+            {name: "Darrell Williams", email: "tammierowe@example.org", city: "North Victor", address: "543 Burton River South Gerald, MN 99286", company: "Jenkins LLC", salary: 50177, jobrole: "Engineer, manufacturing"},
+            {name: "Andrew Smith", email: "samuelcortez@example.com", city: "South Edwinville", address: "57546 Smith Forge Lake Kari, RI 19398", company: "Garza-Robinson", salary: 65506, jobrole: "Engineer, building services"},
+            {name: "Gregory Clark", email: "ggentry@example.net", city: "Bestberg", address: "077 Alisha Turnpike Hutchinsonborough, MS 63192", company: "Chavez Group", salary: 60610, jobrole: "Clinical scientist, histocompatibility and immunogenetics"},
+            {name: "Angela Colon", email: "johnsonjennifer@example.net", city: "West Jamesland", address: "Unit 7816 Box 1298 DPO AP 82911", company: "Bates, Hawkins and Harrison", salary: 29768, jobrole: "Geophysicist/field seismologist"},
+            {name: "William Daniels", email: "williamsjared@example.com", city: "Jonesland", address: "5600 Rebecca Plaza East Denise, PA 93406", company: "Bennett, Turner and Weaver", salary: 25925, jobrole: "Accommodation manager"},
+            {name: "Tara Gray", email: "tlee@example.com", city: "Marisastad", address: "61057 Hebert Spur Silvahaven, MD 63223", company: "Ortiz-Diaz", salary: 67202, jobrole: "Dietitian"},
+            {name: "Lori Kim", email: "markmorris@example.net", city: "Barkerville", address: "7033 Michael Knoll Apt. 506 New Elizabeth, GA 08604", company: "Acosta, Turner and Roberts", salary: 35690, jobrole: "Land"},
+            {name: "Bryan Harris", email: "castrocrystal@example.com", city: "Port Tommy", address: "736 Nathan Street Montgomeryton, MO 29605", company: "Owens-Johnston", salary: 49978, jobrole: "Counselling psychologist"},
+            {name: "Veronica Spears", email: "russell94@example.org", city: "West Kirk", address: "445 Peterson Station Suite 642 East Lorihaven, MO 45974", company: "Riley-Rosales", salary: 57996, jobrole: "Engineer, chemical"},
+            {name: "Jasmine Garcia", email: "philip44@example.net", city: "Hamiltonborough", address: "80701 Chambers Valleys Apt. 172 East Kennethborough, LA 17908", company: "Armstrong, Davis and Walker", salary: 69025, jobrole: "Site engineer"},
+            {name: "Sarah Miller", email: "sharris@example.com", city: "Lake Tyler", address: "Unit 4154 Box 6523 DPO AP 51197", company: "Wilson-Roberts", salary: 61715, jobrole: "Tour manager"},
+            {name: "Christina Vasquez", email: "jessehooper@example.org", city: "Kellyland", address: "6451 Douglas Island South Melissa, AK 91068", company: "Nelson LLC", salary: 50373, jobrole: "Accommodation manager"},
+            {name: "Michelle Sloan", email: "bridgesstefanie@example.org", city: "Walshstad", address: "497 Fowler Creek Rachelburgh, CA 32493", company: "Jones, Clark and Kelley", salary: 54632, jobrole: "Research scientist (medical)"},
+            {name: "Timothy Jones", email: "sharpcolin@example.org", city: "East Danielshire", address: "572 Ochoa Rest Suite 338 Lindafort, GU 16288", company: "Horn-Schneider", salary: 53974, jobrole: "Quality manager"},
+            {name: "Daniel Jones", email: "jbarnes@example.net", city: "North Judy", address: "PSC 3624, Box 3960 APO AE 46449", company: "Peters PLC", salary: 64153, jobrole: "Site engineer"},
+            {name: "Sarah Bailey", email: "matthew38@example.com", city: "East James", address: "291 Willis Ridge West Alexander, TN 37261", company: "Lewis Group", salary: 25345, jobrole: "Mudlogger"},
+            {name: "Michael Blake", email: "reyestodd@example.com", city: "Williamsville", address: "8869 Shaw Islands Apt. 019 East Robintown, PA 89098", company: "Mitchell Inc", salary: 41256, jobrole: "IT consultant"},
+            {name: "Zachary Harvey", email: "derrick84@example.net", city: "Gutierrezview", address: "0626 Kelly Port Andreafort, OK 92261", company: "Stevens Group", salary: 12319, jobrole: "Applications developer"},
+            {name: "Amy Taylor", email: "stevensmith@example.org", city: "Jacksontown", address: "899 Lisa Inlet Johnview, PW 69913", company: "Spencer Group", salary: 47989, jobrole: "Oceanographer"},
+            {name: "Andrew Mullen", email: "blackmichelle@example.org", city: "Butlerborough", address: "4911 James Hill Suite 754 Gregorytown, ID 80017", company: "Evans Group", salary: 29672, jobrole: "Tourist information centre manager"},
+            {name: "Robyn Lewis", email: "lloydalexander@example.net", city: "Vincentmouth", address: "421 James Square Brittanytown, RI 61242", company: "Hernandez LLC", salary: 36217, jobrole: "Petroleum engineer"},
+            {name: "Kristin Taylor", email: "lisa95@example.net", city: "Wadeburgh", address: "5679 Rodriguez Drive Apt. 326 North Anthonychester, NM 05625", company: "Jones-Jackson", salary: 52489, jobrole: "Civil Service administrator"},
+            {name: "Virginia French", email: "jeffreygomez@example.com", city: "Apriltown", address: "110 Coleman Mountains Suite 275 South Karenport, AR 31029", company: "Lang Ltd", salary: 35841, jobrole: "Operational researcher"},
+            {name: "mk", email: "mk1@gmail.com", city: "noida", address: "gr.noida", company: "wipro", salary: 100000, jobrole: "developer"},
+            {name: "ck", email: "chandank1822002@gmail.com", city: "Faridabad, Haryana", address: "manav rachna university hostel", company: "hcl", salary: 20000, jobrole: "it"}
+        ];
+
+        const tableBody = document.getElementById('tableBody');
+        
+        // Render all 62 employees
+        employees.forEach((emp, index) => {
+            const row = document.createElement('tr');
+            row.setAttribute('data-index', index + 1);
+            row.innerHTML = `
+                <th scope="row">${index + 1}</th>
+                <td data-name="${emp.name}"><strong>${emp.name}</strong></td>
+                <td data-email="${emp.email}">
+                    <a href="mailto:${emp.email}" class="text-decoration-none">${emp.email}</a>
+                </td>
+                <td data-city="${emp.city}">
+                    <i class="bi bi-pin-map-fill text-danger"></i> ${emp.city}
+                </td>
+                <td class="text-muted small" data-address="${emp.address}">${emp.address}</td>
+                <td data-company="${emp.company}">
+                    <span class="badge bg-info">${emp.company}</span>
+                </td>
+                <td data-salary="${emp.salary}">
+                    <span class="salary-badge">$${emp.salary.toLocaleString()}</span>
+                </td>
+                <td data-jobrole="${emp.jobrole}">
+                    <span class="badge bg-secondary">${emp.jobrole}</span>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        // Store original order
+        const originalOrder = Array.from(tableBody.querySelectorAll('tr')).map(row => row.cloneNode(true));
+        
+        // Search Functionality
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const searchValue = this.value.toLowerCase();
+            const tableRows = document.querySelectorAll('#tableBody tr');
+            let visibleCount = 0;
+            
+            tableRows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchValue)) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            
+            document.getElementById('visibleCount').textContent = visibleCount;
+            document.getElementById('displayedCount').textContent = visibleCount;
+        });
+        
+        // Sort Functionality
+        let sortDirection = {};
+        
+        document.querySelectorAll('th[data-sort]').forEach(header => {
+            header.addEventListener('click', function() {
+                const sortKey = this.dataset.sort;
+                const direction = sortDirection[sortKey] === 'asc' ? 'desc' : 'asc';
+                sortDirection[sortKey] = direction;
+                
+                const rows = Array.from(tableBody.querySelectorAll('tr'));
+                
+                rows.sort((a, b) => {
+                    let aValue, bValue;
+                    
+                    if (sortKey === 'index') {
+                        aValue = parseInt(a.dataset.index);
+                        bValue = parseInt(b.dataset.index);
+                    } else if (sortKey === 'salary') {
+                        aValue = parseInt(a.querySelector('[data-salary]').dataset.salary);
+                        bValue = parseInt(b.querySelector('[data-salary]').dataset.salary);
+                    } else {
+                        aValue = a.querySelector(`[data-${sortKey}]`)?.dataset[sortKey] || '';
+                        bValue = b.querySelector(`[data-${sortKey}]`)?.dataset[sortKey] || '';
+                    }
+                    
+                    if (typeof aValue === 'number' && typeof bValue === 'number') {
+                        return direction === 'asc' ? aValue - bValue : bValue - aValue;
+                    } else {
+                        return direction === 'asc' 
+                            ? aValue.localeCompare(bValue)
+                            : bValue.localeCompare(aValue);
+                    }
+                });
+                
+                tableBody.innerHTML = '';
+                rows.forEach(row => tableBody.appendChild(row));
+                
+                document.querySelectorAll('th[data-sort] .sort-icon').forEach(icon => {
+                    icon.className = 'bi bi-arrow-down-up sort-icon';
+                });
+                
+                const icon = this.querySelector('.sort-icon');
+                icon.className = direction === 'asc' 
+                    ? 'bi bi-arrow-up sort-icon' 
+                    : 'bi bi-arrow-down sort-icon';
+            });
+        });
+        
+        // Reset Button
+        document.getElementById('resetBtn').addEventListener('click', function() {
+            document.getElementById('searchInput').value = '';
+            sortDirection = {};
+            
+            tableBody.innerHTML = '';
+            originalOrder.forEach(row => tableBody.appendChild(row.cloneNode(true)));
+            
+            document.querySelectorAll('#tableBody tr').forEach(row => {
+                row.style.display = '';
+            });
+            
+            document.querySelectorAll('th[data-sort] .sort-icon').forEach(icon => {
+                icon.className = 'bi bi-arrow-down-up sort-icon';
+            });
+            
+            document.getElementById('visibleCount').textContent = 62;
+            document.getElementById('displayedCount').textContent = 62;
+        });
+    </script>
+</body>
+</html>

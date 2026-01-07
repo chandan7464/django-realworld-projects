@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | Portfolio</title>
+    <link rel="stylesheet" href="{% static 'portfolioapp/css/style.css' %}">
+
+
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/about/">About</a> |
+        <a href="/contact/">Contact</a> |
+        <a href="/gallery/">Gallery</a>
+    </nav>
+    <hr>
+
+    <h1>Gallery</h1>
+    <p>A showcase of my work, certificates & project screenshots:</p>
+
+    <section>
+        <figure>
+            <img src="/static/images/project1.jpg" alt="Project 1" width="200">
+            <figcaption>Project Screenshot 1</figcaption>
+        </figure>
+
+        <figure>
+            <img src="/static/images/certificate1.jpg" alt="Certificate" width="200">
+            <figcaption>Certificate Example</figcaption>
+        </figure>
+    </section>
+
+    <footer>
+        <hr>
+        <p>© 2025 My Portfolio | All Rights Reserved</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Portfolio</title>
+    <link rel="stylesheet" href="{% static 'portfolioapp/css/style.css' %}">
+
+
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/about/">About</a> |
+        <a href="/contact/">Contact</a> |
+        <a href="/gallery/">Gallery</a>
+    </nav>
+    <hr>
+
+    <h1>Contact Me</h1>
+    <p>Feel free to get in touch with me using the details below:</p>
+
+    <ul>
+        <li>Email: yourmail@example.com</li>
+        <li>Phone: +91-9142608371</li>
+        <li>LinkedIn: linkedin.com/in/yourprofile</li>
+    </ul>
+
+    <!-- Contact Form -->
+    <h2>Send Message</h2>
+    <form action="#" method="post">
+        <label>Name:</label><br>
+        <input type="text" name="name" required><br><br>
+
+        <label>Email:</label><br>
+        <input type="email" name="email" required><br><br>
+
+        <label>Message:</label><br>
+        <textarea name="message" rows="5" required></textarea><br><br>
+
+        <button type="submit">Send</button>
+    </form>
+
+    <footer>
+        <hr>
+        <p>© 2025 My Portfolio | All Rights Reserved</p>
+    </footer>
+</body>
+</html>
